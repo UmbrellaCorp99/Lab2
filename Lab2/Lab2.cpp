@@ -12,7 +12,7 @@ void drawFilledCircle(ALLEGRO_COLOR color, const int W, const int H);
 
 int main()
 {
-    ALLEGRO_DISPLAY* display = NULL;
+    ALLEGRO_DISPLAY * display = NULL;
 
     if (!al_init()) {
         al_show_native_message_box(NULL, "Error", "Allegro has failed to initiate", 0, 0, ALLEGRO_MESSAGEBOX_ERROR);
@@ -26,7 +26,7 @@ int main()
         return -1;
     }
 
-    ALLEGRO_EVENT_QUEUE* EventQueue = NULL;
+    ALLEGRO_EVENT_QUEUE * EventQueue = NULL;
     ALLEGRO_EVENT Event;
 
     EventQueue = al_create_event_queue();
@@ -43,6 +43,18 @@ int main()
 
     al_init_primitives_addon();
     al_register_event_source(EventQueue, al_get_display_event_source(display));
+
+    bool exit = false, keyDown = false;
+
+    while (exit == false) {
+        al_clear_to_color(al_map_rgb(255, 255, 255));
+        al_flip_display();
+
+        al_wait_for_event(EventQueue, &Event);
+    }
+
+    al_destroy_display(display);
+    al_destroy_event_queue(EventQueue);
 }
 
 ALLEGRO_COLOR shapeColor() {
