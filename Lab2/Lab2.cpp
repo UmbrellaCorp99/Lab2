@@ -34,6 +34,15 @@ int main()
         al_show_native_message_box(display, "Error", "Failed to initiate the event queue", 0, 0, ALLEGRO_MESSAGEBOX_ERROR);
         return -1;
     }
+
+    if (!al_install_keyboard()) {
+        al_show_native_message_box(NULL, "Error", "Failed to install the keyboard", 0, 0, ALLEGRO_MESSAGEBOX_ERROR);
+        return -1;
+    }
+    al_register_event_source(EventQueue, al_get_keyboard_event_source());
+
+    al_init_primitives_addon();
+    al_register_event_source(EventQueue, al_get_display_event_source(display));
 }
 
 ALLEGRO_COLOR shapeColor() {
