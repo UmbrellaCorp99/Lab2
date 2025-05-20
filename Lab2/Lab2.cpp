@@ -7,6 +7,9 @@
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_primitives.h>
 
+ALLEGRO_COLOR shapeColor();
+void drawFilledCircle(ALLEGRO_COLOR color, const int W, const int H);
+
 int main()
 {
     ALLEGRO_DISPLAY* display = NULL;
@@ -31,5 +34,15 @@ int main()
         al_show_native_message_box(display, "Error", "Failed to initiate the event queue", 0, 0, ALLEGRO_MESSAGEBOX_ERROR);
         return -1;
     }
+}
 
+ALLEGRO_COLOR shapeColor() {
+    return al_map_rgb(0, 0, 0);
+}
+
+void drawFilledCircle(ALLEGRO_COLOR color, const int W, const int H) {
+    int cx = W / 2;
+    int cy = H / 2;
+    int r = 25;
+    al_draw_filled_circle(cx, cy, r, color);
 }
