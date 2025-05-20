@@ -1,20 +1,35 @@
-// Lab2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// Alexander Young
+//Lab 2
 
 #include <iostream>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_native_dialog.h>
+#include <allegro5/allegro_primitives.h>
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    ALLEGRO_DISPLAY* display = NULL;
+
+    if (!al_init()) {
+        al_show_native_message_box(NULL, "Error", "Allegro has failed to initiate", 0, 0, ALLEGRO_MESSAGEBOX_ERROR);
+        return -1;
+    }
+
+    int width = 800, height =600;
+    display = al_create_display(height, width);
+    if (display == NULL) {
+        al_show_native_message_box(display, "Error", "Failed to initiate the display", 0, 0, ALLEGRO_MESSAGEBOX_ERROR);
+        return -1;
+    }
+
+    ALLEGRO_EVENT_QUEUE* EventQueue = NULL;
+    ALLEGRO_EVENT Event;
+
+    EventQueue = al_create_event_queue();
+    if (EventQueue == NULL) {
+        al_show_native_message_box(display, "Error", "Failed to initiate the event queue", 0, 0, ALLEGRO_MESSAGEBOX_ERROR);
+        return -1;
+    }
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
