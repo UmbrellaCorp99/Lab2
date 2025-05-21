@@ -8,7 +8,7 @@
 #include <allegro5/allegro_primitives.h>
 
 ALLEGRO_COLOR shapeColor();
-void drawFilledCircle(ALLEGRO_COLOR color, const int W, const int H);
+void drawFilledCircle(ALLEGRO_COLOR color, const int W, const int H, int xadd, int yadd);
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
     }
 
     int width = 800, height =600;
-    display = al_create_display(height, width);
+    display = al_create_display(width, height);
     if (display == NULL) {
         al_show_native_message_box(display, "Error", "Failed to initiate the display", 0, 0, ALLEGRO_MESSAGEBOX_ERROR);
         return -1;
@@ -45,12 +45,30 @@ int main()
     al_register_event_source(EventQueue, al_get_display_event_source(display));
 
     bool exit = false, keyDown = false;
+    int xadd = 0, yadd = 0;
 
     while (exit == false) {
+        
         al_clear_to_color(al_map_rgb(255, 255, 255));
+        drawFilledCircle(shapeColor(), width, height, xadd, yadd);
         al_flip_display();
 
         al_wait_for_event(EventQueue, &Event);
+
+        if (Event.type == ALLEGRO_EVENT_KEY_DOWN) {
+            if (Event.keyboard.keycode == ALLEGRO_KEY_UP) {
+                yadd += -5;
+            }
+            if (Event.keyboard.keycode == ALLEGRO_KEY_DOWN) {
+                yadd += 5;
+            }
+        }
+        else if (Event.type == ALLEGRO_EVENT_KEY_UP) {
+            keyDown = false;
+        }
+        else if(Event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            exit = true;
+        }
     }
 
     al_destroy_display(display);
@@ -61,9 +79,9 @@ ALLEGRO_COLOR shapeColor() {
     return al_map_rgb(0, 0, 0);
 }
 
-void drawFilledCircle(ALLEGRO_COLOR color, const int W, const int H) {
-    int cx = W / 2;
-    int cy = H / 2;
-    int r = 25;
+void drawFilledCircle(ALLEGRO_COLOR color, const int W, const int H, int xadd, int yadd) {
+    int cx = W / 2 + xadd;
+    int cy = H / 2 + yadd;
+    int r = 50;
     al_draw_filled_circle(cx, cy, r, color);
 }
