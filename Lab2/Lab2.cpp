@@ -62,6 +62,28 @@ int main()
             if (Event.keyboard.keycode == ALLEGRO_KEY_DOWN) {
                 yadd += 5;
             }
+            if (Event.keyboard.keycode == ALLEGRO_KEY_LEFT) {
+                xadd += -5;
+            }
+            if (Event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
+                xadd += 5;
+            }
+            if (Event.keyboard.keycode == ALLEGRO_KEY_U) {
+                xadd += -5;
+                yadd += -5;
+            }
+            if (Event.keyboard.keycode == ALLEGRO_KEY_D) {
+                xadd += 5;
+                yadd += 5;
+            }
+            if (Event.keyboard.keycode == ALLEGRO_KEY_R) {
+                xadd += 5;
+                yadd += -5;
+            }
+            if (Event.keyboard.keycode == ALLEGRO_KEY_L) {
+                xadd += -5;
+                yadd += 5;
+            }
         }
         else if (Event.type == ALLEGRO_EVENT_KEY_UP) {
             keyDown = false;
